@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve -->
+<mapper namespace="com.cl.mybatis.mapper.BorrowMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="borrowMap" type="Borrow">
+        <result property="SNo" column="SNo" javaType="int"/>
+        <result property="ISBN" column="ISBN" javaType="int"/>
+        <result property="time" column="time" javaType="String"/>
+    </resultMap>
+    <!-- 定义 SQL 语句，其中 id 需要和接口中的方法名一致 -->
+    <!-- useGeneratedKeys：实现自动生成主键 -->
+    <!-- keyProperty： 唯一标记一个属性 -->
+    <!-- parameterType 指明查询时使用的参数类型，resultType 指明查询返回的结果集类型 -->
+    <insert id="insertBorrow" useGeneratedKeys="true" keyProperty="SNo">
+        insert into borrow (SNo,ISBN,time) values
+        (#{SNo},#{ISBN},#{time})
+    </insert>
+    <update id="updateBorrow"  parameterType="Borrow">
+        update borrow set
+        time=#{time} where
+        SNo=#{SNo} AND ISBN=#{ISBN}
+    </update>
+
+    <delete id="deleteBorrow" >
+        delete from borrow where
+        SNo=#{SNo} AND ISBN=#{ISBN}
+    </delete>
+
+    <!-- 如未为 Java Bean 起类别名，resultType="com.cl.mybatis.model.Borrow" -->
+
+    <!-- 使用resultType时，一定要保证，你属性名与字段名相同；如果不相同，就使用resultMap -->
+    <select id="selectBorrowBySNo" parameterType="int" resultMap="borrowMap">
+        select * from borrow where SNo=#{SNo}
+    </select>
+
+    <select id="selectBorrowByISBN" parameterType="int" resultMap="borrowMap">
+        select * from borrow where ISBN=#{ISBN}
+    </select>
+
+    <select id="selectBorrowByTwo" resultMap="borrowMap">
+        select * from borrow where SNo=#{SNo} AND ISBN=#{ISBN}
+    </select>
+
+    <select id="selectAllBorrow" resultMap="borrowMap">
+        select * from borrow
+    </select>
+
+</mapper>

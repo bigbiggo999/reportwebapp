@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve -->
+<mapper namespace="com.cl.mybatis.mapper.BooksMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="booksMap" type="Books">
+        <id property="ISBN" column="ISBN" javaType="int"/>
+        <result property="BName" column="BName" javaType="String"/>
+        <result property="author" column="author" javaType="String"/>
+        <result property="rest" column="rest" javaType="int"/>
+    </resultMap>
+    <!-- 定义 SQL 语句，其中 id 需要和接口中的方法名一致 -->
+    <!-- useGeneratedKeys：实现自动生成主键 -->
+    <!-- keyProperty： 唯一标记一个属性 -->
+    <!-- parameterType 指明查询时使用的参数类型，resultType 指明查询返回的结果集类型 -->
+    <insert id="insertBooks" useGeneratedKeys="true" keyProperty="ISBN">
+        insert into books (ISBN,BName,author,rest) values
+        (#{ISBN},#{BName},#{author},#{rest})
+    </insert>
+    <update id="updateBooks"  parameterType="Books">
+        update books set
+        rest=#{rest} where
+        ISBN=#{ISBN}
+    </update>
+
+    <delete id="deleteBooks" parameterType="int">
+        delete from books where
+        ISBN=#{ISBN}
+    </delete>
+
+    <!-- 如未为 Java Bean 起类别名，resultType="com.cl.mybatis.model.Books" -->
+
+    <!-- 使用resultType时，一定要保证，你属性名与字段名相同；如果不相同，就使用resultMap -->
+    <select id="selectBooksById" parameterType="int" resultType="Books">
+        select * from books where ISBN=#{ISBN}
+    </select>
+
+    <select id="selectAllBooks" resultMap="booksMap">
+        select * from books
+    </select>
+
+</mapper>

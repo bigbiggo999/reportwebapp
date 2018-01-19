@@ -1,0 +1,18 @@
+	<!--
+	登录主页;
+	 -->
+	<%--<%
+		request.setCharacterEncoding("utf-8");
+		PreparedStatement sql = null;
+		Connection conn = null;
+		ResultSet rst = null;
+		conn = DBHelper.getConnection();
+		try {
+			sql = conn.prepareStatement("select * from users");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		rst = sql.executeQuery();
+	%>--%>
+
+

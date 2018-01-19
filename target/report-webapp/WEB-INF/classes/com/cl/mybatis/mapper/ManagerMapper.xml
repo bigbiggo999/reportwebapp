@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--suppress SqlResolve -->
+<mapper namespace="com.cl.mybatis.mapper.ManagerMapper">
+    <!-- 自定义返回结果集 -->
+    <resultMap id="managerMap" type="Manager">
+        <id property="MNo" column="MNo" javaType="int"/>
+        <result property="MName" column="MName" javaType="String"/>
+        <result property="MPwd" column="MPwd" javaType="String"/>
+    </resultMap>
+    <!-- 定义 SQL 语句，其中 id 需要和接口中的方法名一致 -->
+    <!-- useGeneratedKeys：实现自动生成主键 -->
+    <!-- keyProperty： 唯一标记一个属性 -->
+    <!-- parameterType 指明查询时使用的参数类型，resultType 指明查询返回的结果集类型 -->
+    <insert id="insertManager" useGeneratedKeys="true" keyProperty="MNo">
+        insert into manager (MNo,MName,MPwd) values
+        (#{MNo},#{MName},#{MPwd})
+    </insert>
+    <update id="updateManager"  parameterType="Manager">
+        update manager set
+        MPwd=#{MPwd} where
+        MNo=#{MNo}
+    </update>
+
+    <delete id="deleteManager" parameterType="int">
+        delete from manager where
+        MNo=#{MNo}
+    </delete>
+
+    <!-- 如未为 Java Bean 起类别名，resultType="com.cl.mybatis.model.Manager" -->
+
+    <!-- 使用resultType时，一定要保证，你属性名与字段名相同；如果不相同，就使用resultMap -->
+    <select id="selectManagerById" parameterType="int" resultType="Manager">
+        select * from manager where MNo=#{MNo}
+    </select>
+
+    <select id="selectAllManager" resultMap="managerMap">
+        select * from manager
+    </select>
+
+</mapper>
