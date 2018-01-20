@@ -20,6 +20,7 @@
     Integer ISBN = Integer.valueOf(request.getParameter("ISBN"));
     String time = request.getParameter("time");
     crud.insertBorrow(SNo,ISBN,time);
+    crud.updateBooks(ISBN,crud.selectBooks(ISBN).getBName(),crud.selectBooks(ISBN).getAuthor(),crud.selectBooks(ISBN).getRest()-1);
 %>
 <jsp:forward page="manBorrow.jsp"/>
 

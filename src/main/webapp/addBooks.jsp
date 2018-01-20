@@ -1,4 +1,5 @@
-<%@ page import="com.cl.util.Crud" %><%--
+<%@ page import="com.cl.util.Crud" %>
+<%@ page import="com.cl.model.Books" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2018/1/19
@@ -18,7 +19,12 @@
     String BName = request.getParameter("BName");
     String author = request.getParameter("author");
     Integer rest = Integer.valueOf(request.getParameter("rest"));
-    crud.insertBooks(ISBN,BName,author,rest);
+    Books books = crud.selectBooks(ISBN);
+    if(books==null){
+        crud.insertBooks(ISBN,BName,author,rest);
+    }else{
+        crud.updateBooks(ISBN,BName,author,rest+crud.selectBooks(ISBN).getRest());
+    }
 %>
 <jsp:forward page="booksList.jsp"/>
 </body>

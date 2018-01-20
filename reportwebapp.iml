@@ -22,10 +22,10 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="jsp-api" level="application" />
+    <orderEntry type="library" name="servlet-api" level="application" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.4.5" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:6.0.6" level="project" />
-    <orderEntry type="library" name="jsp-api" level="application" />
-    <orderEntry type="library" name="servlet-api" level="application" />
   </component>
 </module>
